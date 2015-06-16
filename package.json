@@ -1,0 +1,11 @@
+{
+  "name": "backupTimes",
+  "version": "0.0.1",
+  "description": "Personal use only",
+  "main": "index.js",
+  "author": "Craig David",
+  "dependencies": {
+
+  },
+  "license": "MIT"
+}
