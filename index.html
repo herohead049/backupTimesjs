@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+    <head>
+        <script src='/socket.io/socket.io.js'></script>
+        <script>
+            var socket = io();
+
+            socket.on('welcome', function(data) {
+                //addMessage(data.message);
+
+                // Respond with a message including this clients' id sent from the server
+                socket.emit('i am client', {data: 'foo!', id: data.id});
+            });
+
+            socket.on('client', function(data) {
+                addMessage(data.client, 'client');
+                addMessage(data.description, 'description');
+                addMessage(data.owner, 'owner');
+            });
+            
+            socket.on('wait', function(turn) {
+                addMessage(turn.message, 'wait');
+            });
+            
+            
+            socket.on('error', console.error.bind(console));
+            socket.on('message', console.log.bind(console));
+
+            function addMessage(message,id) {
+                var text = document.createTextNode(message),
+                    el = document.createElement('li'),
+                    val = document.getElementById(id);
+
+                el.appendChild(text);
+                val.innerHTML = message;
+            }
+        </script>
+    </head>
+    <body>
+        <ul id='wait'></ul>
+        <table>
+            <td><b><ul id='client'></ul></b></td>
+            <td><ul id='description'></ul></td>
+            <td><ul id='owner'></ul></td>
+        </table>
+        
+    </body>
+</html>
