@@ -15,6 +15,7 @@ fs = require('fs'),
     // NEVER use a Sync function except at start-up!
     index = fs.readFileSync(__dirname + '/index.html');
 
+
 // start of sockets
 
 var io = require('socket.io')(server.listener);
@@ -49,6 +50,9 @@ server.route({
     }
 });
 
+
+
+
 function sendTime(reqData) {
   /**
     if (reqData === 'ch00sm33') {
@@ -60,7 +64,11 @@ function sendTime(reqData) {
   **/
 
     redisClient.hget("bf.server", reqData, function(err, reply) {
-        io.emit('client', JSON.parse(reply));
+        var obj = JSON.parse(reply);
+
+        obj.ffrs = '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
+
+        io.emit('client', obj);
         console.log(reply);
     });
 }

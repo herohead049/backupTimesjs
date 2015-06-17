@@ -1,6 +1,23 @@
 <!doctype html>
 <html>
     <head>
+
+        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+        <!-- Latest compiled and minified CSS -->
+
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
+
         <script src='/socket.io/socket.io.js'></script>
         <script>
             var socket = io();
@@ -51,6 +68,7 @@
         </script>
     </head>
     <body>
+
         <ul id='wait'></ul>
         <input type="submit" value="submit" onclick="foo();" />
 
@@ -60,7 +78,9 @@
             <td><ul id='owner'></ul></td>
             <td><ul id='backuprequired'></ul></td>
             <td><ul id='ffrs'></ul></td>
+
+
         </table>
-        
+        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
     </body>
 </html>
