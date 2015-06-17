@@ -39,7 +39,7 @@ server.route({
     handler: function (request, reply) {
         //reply.continue(200, {'Content-Type': 'text/html'});
         io.emit('wait', { message: "Retrieving Data please wait"});
-        console.log(request.params.data);
+//        console.log(request.params.data);
         setTimeout(function() {
             sendTime(request.params.data);
             io.emit('wait', { message: "retrieved Data"});
@@ -59,21 +59,19 @@ function sendTime(reqData) {
 
   **/
 
-
-
     redisClient.hget("bf.server", reqData, function(err, reply) {
-    // reply is null when the key is missing
-    //var obj = JSON.parse(reply);
         io.emit('client', JSON.parse(reply));
         console.log(reply);
-});
-
-
-
+    });
 }
 
 
-redisClient.hset("bf.server", "ch00sm33" , '{ "client": "ch00sm33", "description": "Networker Server", "owner": "Craig David"}');
+redisClient.hset("bf.server", "ch00sm33" , '{ "client": "ch00sm33", "description": "Networker Server", "owner": "Craig David", "backuprequired": "true", "ffrs": "false" }');
+redisClient.hset("bf.server", "us01s-epm04" , '{ "client": "us01s-epm04", "description": "Hyperion Server", "owner": "Deb David", "backuprequired": "true", "ffrs": "true" }');
+redisClient.hset("bf.server", "us01s-epm05" , '{ "client": "us01s-epm05", "description": "Hyperion Server", "owner": "Deb David", "backuprequired": "true", "ffrs": "true" }');
+redisClient.hset("bf.server", "us01s-epm06" , '{ "client": "us01s-epm06", "description": "Hyperion Server", "owner": "Deb David", "backuprequired": "true", "ffrs": "true" }');
+redisClient.hset("bf.server", "us01s-epm07" , '{ "client": "us01s-epm07", "description": "Hyperion Server", "owner": "Deb David", "backuprequired": "true", "ffrs": "true" }');
+redisClient.hset("bf.server", "us01s-epm08" , '{ "client": "us01s-epm08", "description": "Hyperion Server", "owner": "Deb David", "backuprequired": "true", "ffrs": "true" }');
 
 
 
