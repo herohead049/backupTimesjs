@@ -4,12 +4,12 @@
         <script src='/socket.io/socket.io.js'></script>
         <script>
             var socket = io();
-
+socket.emit('i am client', {data: 'Html loaded'});
             socket.on('welcome', function(data) {
                 //addMessage(data.message);
 
                 // Respond with a message including this clients' id sent from the server
-                socket.emit('i am client', {data: 'foo!', id: data.id});
+                socket.emit('i am client', {data: 'foo!'});
             });
 
             socket.on('client', function(data) {
@@ -22,6 +22,10 @@
                 addMessage(turn.message, 'wait');
             });
             
+            socket.on('button', function(turn) {
+                addMessage(turn.data, 'wait');
+            });
+
             
             socket.on('error', console.error.bind(console));
             socket.on('message', console.log.bind(console));
@@ -34,10 +38,19 @@
                 el.appendChild(text);
                 val.innerHTML = message;
             }
+            function foo() {
+                socket.emit('button', {data: 'button pressed on webpage'});
+                //socket.emit('i am client', {data: 'Html loaded'});
+                //alert("Submit button clicked!");
+
+            return true;
+            }
         </script>
     </head>
     <body>
         <ul id='wait'></ul>
+        <input type="submit" value="submit" onclick="foo();" />
+
         <table>
             <td><b><ul id='client'></ul></b></td>
             <td><ul id='description'></ul></td>
