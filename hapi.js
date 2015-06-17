@@ -3,7 +3,10 @@ var cdlibjs = require('cdlibjs');
 var redis = require('redis');
 
 
-console.log(cdlibjs.getRedisAddress());
+var redisServer = cdlibjs.getRedisAddress();
+
+var redisClient = redis.createClient(6379, redisServer);
+
 
 var server = new Hapi.Server();
 server.connection({ port: 4000 });
@@ -18,9 +21,9 @@ var io = require('socket.io')(server.listener);
 
 io.on('connection', function(socket) {
     // Use socket to communicate with this particular client only, sending it it's own id
-    socket.emit('welcome', { message: 'Welcome!', id: socket.id });
+    //socket.emit('welcome', { message: 'Welcome!', id: socket.id });
     //sendTime();
-    socket.on('i am client', console.log);
+    //socket.on('i am client', console.log);
 
     socket.on('button', function (data) {
         console.log(data);
@@ -46,15 +49,32 @@ server.route({
     }
 });
 
-
-
-
 function sendTime(reqData) {
-    if (reqData === '1') {
+  /**
+    if (reqData === 'ch00sm33') {
         io.emit('client', { client: "ch00sm33", description: "Networker Server", owner: "Craig David"});
     } else {
         io.emit('client', { client: "us01s-epm04", description: "Hyperion Server", owner: "Deb David"});
     }
+
+  **/
+
+
+
+    redisClient.hget("bf.server", reqData, function(err, reply) {
+    // reply is null when the key is missing
+    //var obj = JSON.parse(reply);
+        io.emit('client', JSON.parse(reply));
+        console.log(reply);
+});
+
+
+
 }
+
+
+redisClient.hset("bf.server", "ch00sm33" , '{ "client": "ch00sm33", "description": "Networker Server", "owner": "Craig David"}');
+
+
 
 server.start();

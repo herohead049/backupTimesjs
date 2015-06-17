@@ -4,15 +4,16 @@
         <script src='/socket.io/socket.io.js'></script>
         <script>
             var socket = io();
-socket.emit('i am client', {data: 'Html loaded'});
+//socket.emit('i am client', {data: 'Html loaded'});
             socket.on('welcome', function(data) {
                 //addMessage(data.message);
 
                 // Respond with a message including this clients' id sent from the server
-                socket.emit('i am client', {data: 'foo!'});
+                //socket.emit('i am client', {data: 'foo!'});
             });
 
             socket.on('client', function(data) {
+                //console.log(data);
                 addMessage(data.client, 'client');
                 addMessage(data.description, 'description');
                 addMessage(data.owner, 'owner');
